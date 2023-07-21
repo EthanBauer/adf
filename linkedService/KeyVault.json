@@ -1,0 +1,11 @@
+{
+	"name": "KeyVault",
+	"properties": {
+		"description": "KeyVault connected to kv-ethanbauer-prod-001",
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://kv-ethanbauer-prod-001.vault.azure.net/"
+		}
+	}
+}
