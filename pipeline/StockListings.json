@@ -1,0 +1,9 @@
+{
+	"name": "StockListings",
+	"properties": {
+		"folder": {
+			"name": "AlphaVantage"
+		},
+		"annotations": []
+	}
+}
