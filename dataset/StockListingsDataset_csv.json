@@ -1,0 +1,15 @@
+{
+	"name": "StockListingsDataset_csv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AlphaVantageAPI",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "AlphaVantage"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}
