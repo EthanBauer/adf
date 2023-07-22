@@ -3,7 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "Copy Data From API To DL",
+				"description": "Calls the API and gathers the information into the datalake.",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -54,7 +55,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "AlphaVantageStockList",
+						"referenceName": "AlphaVantage_datalake_csv",
 						"type": "DatasetReference",
 						"parameters": {
 							"FileName": {
@@ -66,11 +67,12 @@
 				]
 			},
 			{
-				"name": "Copy data2",
+				"name": "Copy Data From DL to DW",
+				"description": "Copies data from datalake to datawarehouse",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Copy data1",
+						"activity": "Copy Data From API To DL",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -115,7 +117,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "AlphaVantageStockList",
+						"referenceName": "AlphaVantage_datalake_csv",
 						"type": "DatasetReference",
 						"parameters": {
 							"FileName": {
@@ -135,6 +137,34 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "Execute SP Merge Stock List",
+				"description": "executes the stored procedure to move from staging to final table.",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copy Data From DL to DW",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[alpha_vantage_stage].[sp_merge_stock_list]"
+				},
+				"linkedServiceName": {
+					"referenceName": "ethanbauerserver",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"folder": {
