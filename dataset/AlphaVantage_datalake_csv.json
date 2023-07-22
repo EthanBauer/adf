@@ -1,5 +1,5 @@
 {
-	"name": "AlphaVantageStockList",
+	"name": "AlphaVantage_datalake_csv",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ethanbauerdatalakeLinkedService",
@@ -9,6 +9,9 @@
 			"FileName": {
 				"type": "string"
 			}
+		},
+		"folder": {
+			"name": "AlphaVantage"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
