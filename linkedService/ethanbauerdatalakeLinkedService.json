@@ -1,0 +1,11 @@
+{
+	"name": "ethanbauerdatalakeLinkedService",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://ethanbauerdatalake.dfs.core.windows.net/"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
+}

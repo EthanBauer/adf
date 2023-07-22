@@ -1,0 +1,13 @@
+{
+	"name": "AlphaVantageAPI",
+	"properties": {
+		"description": "AlphaVantage API connection. AlphaVantage contains stock data.",
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://www.alphavantage.co",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
