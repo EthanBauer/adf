@@ -1,0 +1,18 @@
+{
+	"name": "ethanbauerserver",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ethanbauer-server-prod-001.database.windows.net;Initial Catalog=ethanbauerDB-prod-001;User ID=cloudadmin",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "KeyVault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "cloudadmin-secret"
+			}
+		}
+	}
+}
