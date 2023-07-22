@@ -5,11 +5,22 @@
 			"referenceName": "AlphaVantageAPI",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"query": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "AlphaVantage"
 		},
 		"annotations": [],
 		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "@dataset().query",
+				"type": "Expression"
+			}
+		},
 		"schema": []
 	}
 }
