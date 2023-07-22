@@ -5,6 +5,9 @@
 			"referenceName": "DownloadStockListHTTP",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "AlphaVantage"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

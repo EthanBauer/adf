@@ -3,7 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "Copy Data From API To DL",
+				"description": "Calls the API and gathers the information into the datalake.",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -66,11 +67,12 @@
 				]
 			},
 			{
-				"name": "Copy data2",
+				"name": "Copy Data From DL to DW",
+				"description": "Copies data from datalake to datawarehouse",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Copy data1",
+						"activity": "Copy Data From API To DL",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -137,11 +139,12 @@
 				]
 			},
 			{
-				"name": "Stored procedure1",
+				"name": "Execute SP Merge Stock List",
+				"description": "executes the stored procedure to move from staging to final table.",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Copy data2",
+						"activity": "Copy Data From DL to DW",
 						"dependencyConditions": [
 							"Succeeded"
 						]
