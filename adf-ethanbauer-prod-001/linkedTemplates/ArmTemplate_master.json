@@ -7,6 +7,27 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-ethanbauer-prod-001"
 		},
+		"ethanbauerserver_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ethanbauerserver'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ethanbauer-server-prod-001.database.windows.net;Initial Catalog=ethanbauerDB-prod-001;User ID=cloudadmin"
+		},
+		"AlphaVantageAPI_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://www.alphavantage.co"
+		},
+		"DownloadStockListHTTP_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://www.alphavantage.co/query?function=LISTING_STATUS&apikey=BURCSC12I2PSYHNS"
+		},
+		"KeyVault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-ethanbauer.vault.azure.net/"
+		},
+		"ethanbauerdatalakeLinkedService_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://ethanbauerdatalake.dfs.core.windows.net/"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -33,6 +54,21 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"ethanbauerserver_connectionString": {
+						"value": "[parameters('ethanbauerserver_connectionString')]"
+					},
+					"AlphaVantageAPI_properties_typeProperties_url": {
+						"value": "[parameters('AlphaVantageAPI_properties_typeProperties_url')]"
+					},
+					"DownloadStockListHTTP_properties_typeProperties_url": {
+						"value": "[parameters('DownloadStockListHTTP_properties_typeProperties_url')]"
+					},
+					"KeyVault_properties_typeProperties_baseUrl": {
+						"value": "[parameters('KeyVault_properties_typeProperties_baseUrl')]"
+					},
+					"ethanbauerdatalakeLinkedService_properties_typeProperties_url": {
+						"value": "[parameters('ethanbauerdatalakeLinkedService_properties_typeProperties_url')]"
 					}
 				}
 			},

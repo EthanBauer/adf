@@ -4,6 +4,21 @@
 	"parameters": {
 		"factoryName": {
 			"value": "adf-ethanbauer-prod-001"
+		},
+		"ethanbauerserver_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=ethanbauer-server-prod-001.database.windows.net;Initial Catalog=ethanbauerDB-prod-001;User ID=cloudadmin"
+		},
+		"AlphaVantageAPI_properties_typeProperties_url": {
+			"value": "https://www.alphavantage.co"
+		},
+		"DownloadStockListHTTP_properties_typeProperties_url": {
+			"value": "https://www.alphavantage.co/query?function=LISTING_STATUS&apikey=BURCSC12I2PSYHNS"
+		},
+		"KeyVault_properties_typeProperties_baseUrl": {
+			"value": "https://kv-ethanbauer.vault.azure.net/"
+		},
+		"ethanbauerdatalakeLinkedService_properties_typeProperties_url": {
+			"value": "https://ethanbauerdatalake.dfs.core.windows.net/"
 		}
 	}
 }
