@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup Store List",
+				"name": "Lookup Symbol List",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -17,6 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT TOP (5) [symbol]\n      ,[name]\n      ,[exchange]\n      ,[assetType]\n      ,[ipoDate]\n      ,[delistingDate]\n      ,[status]\n  FROM [alpha_vantage].[stock_list]\nWHERE [assetType] = 'Stock'",
 						"queryTimeout": "00:10:00",
 						"partitionOption": "None"
 					},
@@ -29,6 +30,304 @@
 						}
 					},
 					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Iterate Over Symbol List",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup Symbol List",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup Symbol List').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "RestSource",
+									"httpRequestTimeout": "00:01:40",
+									"requestInterval": "00.00:00:00.010",
+									"requestMethod": "GET",
+									"paginationRules": {
+										"supportRFC5988": "true"
+									}
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false,
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"path": "['fiscalDateEnding']"
+											},
+											"sink": {
+												"name": "fiscalDateEnding"
+											}
+										},
+										{
+											"source": {
+												"path": "['reportedCurrency']"
+											},
+											"sink": {
+												"name": "reportedCurrency"
+											}
+										},
+										{
+											"source": {
+												"path": "['grossProfit']"
+											},
+											"sink": {
+												"name": "grossProfit"
+											}
+										},
+										{
+											"source": {
+												"path": "['totalRevenue']"
+											},
+											"sink": {
+												"name": "totalRevenue"
+											}
+										},
+										{
+											"source": {
+												"path": "['costOfRevenue']"
+											},
+											"sink": {
+												"name": "costOfRevenue"
+											}
+										},
+										{
+											"source": {
+												"path": "['costofGoodsAndServicesSold']"
+											},
+											"sink": {
+												"name": "costofGoodsAndServicesSold"
+											}
+										},
+										{
+											"source": {
+												"path": "['operatingIncome']"
+											},
+											"sink": {
+												"name": "operatingIncome"
+											}
+										},
+										{
+											"source": {
+												"path": "['sellingGeneralAndAdministrative']"
+											},
+											"sink": {
+												"name": "sellingGeneralAndAdministrative"
+											}
+										},
+										{
+											"source": {
+												"path": "['researchAndDevelopment']"
+											},
+											"sink": {
+												"name": "researchAndDevelopment"
+											}
+										},
+										{
+											"source": {
+												"path": "['operatingExpenses']"
+											},
+											"sink": {
+												"name": "operatingExpenses"
+											}
+										},
+										{
+											"source": {
+												"path": "['investmentIncomeNet']"
+											},
+											"sink": {
+												"name": "investmentIncomeNet"
+											}
+										},
+										{
+											"source": {
+												"path": "['netInterestIncome']"
+											},
+											"sink": {
+												"name": "netInterestIncome"
+											}
+										},
+										{
+											"source": {
+												"path": "['interestIncome']"
+											},
+											"sink": {
+												"name": "interestIncome"
+											}
+										},
+										{
+											"source": {
+												"path": "['interestExpense']"
+											},
+											"sink": {
+												"name": "interestExpense"
+											}
+										},
+										{
+											"source": {
+												"path": "['nonInterestIncome']"
+											},
+											"sink": {
+												"name": "nonInterestIncome"
+											}
+										},
+										{
+											"source": {
+												"path": "['otherNonOperatingIncome']"
+											},
+											"sink": {
+												"name": "otherNonOperatingIncome"
+											}
+										},
+										{
+											"source": {
+												"path": "['depreciation']"
+											},
+											"sink": {
+												"name": "depreciation"
+											}
+										},
+										{
+											"source": {
+												"path": "['depreciationAndAmortization']"
+											},
+											"sink": {
+												"name": "depreciationAndAmortization"
+											}
+										},
+										{
+											"source": {
+												"path": "['incomeBeforeTax']"
+											},
+											"sink": {
+												"name": "incomeBeforeTax"
+											}
+										},
+										{
+											"source": {
+												"path": "['incomeTaxExpense']"
+											},
+											"sink": {
+												"name": "incomeTaxExpense"
+											}
+										},
+										{
+											"source": {
+												"path": "['interestAndDebtExpense']"
+											},
+											"sink": {
+												"name": "interestAndDebtExpense"
+											}
+										},
+										{
+											"source": {
+												"path": "['netIncomeFromContinuingOperations']"
+											},
+											"sink": {
+												"name": "netIncomeFromContinuingOperations"
+											}
+										},
+										{
+											"source": {
+												"path": "['comprehensiveIncomeNetOfTax']"
+											},
+											"sink": {
+												"name": "comprehensiveIncomeNetOfTax"
+											}
+										},
+										{
+											"source": {
+												"path": "['ebit']"
+											},
+											"sink": {
+												"name": "ebit"
+											}
+										},
+										{
+											"source": {
+												"path": "['ebitda']"
+											},
+											"sink": {
+												"name": "ebitda"
+											}
+										},
+										{
+											"source": {
+												"path": "['netIncome']"
+											},
+											"sink": {
+												"name": "netIncome"
+											}
+										},
+										{
+											"source": {
+												"path": "$['symbol']"
+											},
+											"sink": {
+												"name": "symbol"
+											}
+										}
+									],
+									"collectionReference": "$['quarterlyReports']",
+									"mapComplexValuesToString": true
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "AlphaVantageIncomeStatements",
+									"type": "DatasetReference",
+									"parameters": {
+										"query": {
+											"value": "@concat('query?function=INCOME_STATEMENT&symbol=', item().symbol, '&apikey=BURCSC12I2PSYHNS')",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ethanbauerDB",
+									"type": "DatasetReference",
+									"parameters": {
+										"SchemaName": "alpha_vantage_stage",
+										"TableName": "income_statements_stage"
+									}
+								}
+							]
+						}
+					]
 				}
 			}
 		],

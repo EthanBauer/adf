@@ -1,0 +1,23 @@
+{
+	"name": "AlphaVantageIncomeStatements",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AlphaVantageAPI",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"query": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "@dataset().query",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	}
+}
